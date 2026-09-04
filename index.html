@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5c1a25">
+<meta name="description" content="کلاس ڈائری — روزانہ سبق، گھر کا کام اور حاضری کا ڈیجیٹل رجسٹر">
+<title>کلاس ڈائری</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Noto+Sans+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-band"></div>
+  <h1 class="app-title">کلاس ڈائری</h1>
+  <p class="app-sub">روزانہ سبق و گھر کے کام کا اندراج</p>
+  <div class="watermark-tag">M Ijaz · GHS 124/NB</div>
+</header>
+
+<main class="page" id="page">
+
+  <section class="ledger-head" aria-label="بنیادی تفصیلات">
+    <div class="field-pair">
+      <label class="field">
+        <span class="field-label">کلاس</span>
+        <select id="classSelect" class="input select">
+          <option value="نرسری">نرسری</option>
+          <option value="کچی">کچی</option>
+          <option value="پہلی">پہلی</option>
+          <option value="دوسری">دوسری</option>
+          <option value="تیسری">تیسری</option>
+          <option value="چوتھی">چوتھی</option>
+          <option value="پانچویں">پانچویں</option>
+          <option value="چھٹی">چھٹی</option>
+          <option value="ساتویں">ساتویں</option>
+          <option value="آٹھویں">آٹھویں</option>
+          <option value="نہویں">نہویں</option>
+          <option value="دہم">دہم</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field-label">مورخہ</span>
+        <input type="date" id="dateInput" class="input">
+      </label>
+    </div>
+    <div class="day-chip" id="dayChip">—</div>
+  </section>
+
+  <section class="periods" id="periodsList" aria-label="پیریڈز"></section>
+
+  <template id="periodTemplate">
+    <article class="period-card" data-index="">
+      <div class="period-head">
+        <span class="period-badge"></span>
+        <span class="period-title">پیریڈ</span>
+        <span class="autosave-dot" title="خودکار محفوظ"></span>
+      </div>
+      <div class="period-body">
+        <label class="field">
+          <span class="field-label">مضمون</span>
+          <input type="text" class="input subject" list="subjectOptions" placeholder="مثلاً اردو، انگریزی، ریاضی">
+        </label>
+        <label class="field">
+          <span class="field-label">نام استادِ محترم</span>
+          <input type="text" class="input teacher" placeholder="استاد کا نام لکھیں">
+        </label>
+        <label class="field">
+          <span class="field-label">سبق</span>
+          <textarea class="input lesson" rows="2" placeholder="آج پڑھایا گیا سبق"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">گھر کا کام</span>
+          <textarea class="input homework" rows="2" placeholder="طلبہ کے لیے گھر کا کام"></textarea>
+        </label>
+        <label class="field signature-field">
+          <span class="field-label">دستخط</span>
+          <input type="text" class="input signature" placeholder="خودکار (استاد کے نام سے)">
+        </label>
+      </div>
+    </article>
+  </template>
+
+  <datalist id="subjectOptions">
+    <option value="اردو">
+    <option value="انگریزی">
+    <option value="ریاضی">
+    <option value="سائنس">
+    <option value="مطالعہ پاکستان">
+    <option value="اسلامیات">
+    <option value="کمپیوٹر">
+    <option value="معاشرتی علوم">
+    <option value="خطاطی">
+    <option value="مشقی سرگرمی">
+  </datalist>
+
+</main>
+
+<nav class="toolbar" aria-label="اعمال">
+  <button type="button" class="tool-btn" id="btnNew" aria-label="نئی ڈائری">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    <span>نئی</span>
+  </button>
+  <button type="button" class="tool-btn" id="btnSave" aria-label="محفوظ کریں">
+    <svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5V4z"/><path d="M8 4v6h8V4M8 20v-6h8v6"/></svg>
+    <span>محفوظ</span>
+  </button>
+  <button type="button" class="tool-btn" id="btnDownload" aria-label="ڈاؤن لوڈ کریں">
+    <svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
+    <span>ڈاؤن لوڈ</span>
+  </button>
+  <button type="button" class="tool-btn" id="btnShare" aria-label="شیئر کریں">
+    <svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="17" cy="6" r="2.4"/><circle cx="17" cy="18" r="2.4"/><path d="M8.2 10.8l6.9-3.8M8.2 13.2l6.9 3.8"/></svg>
+    <span>شیئر</span>
+  </button>
+  <button type="button" class="tool-btn" id="btnHistory" aria-label="فہرست">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+    <span>فہرست</span>
+  </button>
+</nav>
+
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+<section class="sheet" id="historySheet" aria-label="محفوظ شدہ ڈائریاں">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <h2>محفوظ شدہ ڈائریاں</h2>
+    <button type="button" class="sheet-close" id="sheetClose" aria-label="بند کریں">✕</button>
+  </div>
+  <div class="sheet-list" id="historyList"></div>
+  <template id="historyItemTemplate">
+    <div class="history-item">
+      <div class="history-info">
+        <strong class="history-class"></strong>
+        <span class="history-date"></span>
+      </div>
+      <div class="history-actions">
+        <button type="button" class="icon-btn edit-entry" aria-label="ترمیم">
+          <svg viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a1.8 1.8 0 012.5 2.5L7.5 18.5z"/><path d="M15 6l3 3"/></svg>
+        </button>
+        <button type="button" class="icon-btn share-entry" aria-label="شیئر">
+          <svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="17" cy="6" r="2"/><circle cx="17" cy="18" r="2"/><path d="M8 11l7-4M8 13l7 4"/></svg>
+        </button>
+        <button type="button" class="icon-btn delete-entry" aria-label="حذف">
+          <svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13"/></svg>
+        </button>
+      </div>
+    </div>
+  </template>
+  <p class="sheet-empty" id="sheetEmpty">ابھی کوئی ڈائری محفوظ نہیں ہوئی۔</p>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<div id="exportCanvasHost" class="export-host" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
